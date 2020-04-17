@@ -4,8 +4,21 @@ import Cell from "../components/Cell";
 const Home: FC<{}> = () => {
   return (
     <>
-      <p>hello world</p>
-      <Cell />
+      <div className="board-row">
+        <Cell />
+        <Cell />
+        <Cell />
+      </div>
+      <div className="board-row">
+        <Cell />
+        <Cell />
+        <Cell />
+      </div>
+      <div className="board-row">
+        <Cell />
+        <Cell />
+        <Cell />
+      </div>
     </>
   );
 };
