@@ -1,11 +1,13 @@
 import React, { FC } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { routes } from "../routes";
+import { CssBaseline, Container } from "@material-ui/core";
 
 const App: FC<{}> = () => {
   return (
     <Router>
-      <div className="App">
+      <CssBaseline />
+      <Container maxWidth="sm">
         <nav>
           <ul>
             <li>
@@ -22,7 +24,7 @@ const App: FC<{}> = () => {
             <Route exact key={key} path={route.path} component={route.component} />
           ))}
         </Switch>
-      </div>
+      </Container>
     </Router>
   );
 };

@@ -1,10 +1,11 @@
 import React, { FC } from "react";
+import Cell from "../components/Cell";
 
 const Home: FC<{}> = () => {
   return (
     <>
       <p>hello world</p>
-      <p>Home</p>
+      <Cell />
     </>
   );
 };
