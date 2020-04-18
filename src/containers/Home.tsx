@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import Board from "../components/Board";
+import LifeGame from "../components/LifeGame";
 
 const Home: FC<{}> = () => {
   return (
     <>
-      <Board />
+      <LifeGame />
     </>
   );
 };

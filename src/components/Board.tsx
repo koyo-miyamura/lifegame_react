@@ -1,25 +1,15 @@
 import React, { FC } from "react";
-import Cell from "./Cell";
+import BoardRow from "./BoardRow";
 
 type BoardProps = {
-  cellStates?: boolean[][];
+  rows: boolean[][];
 };
 
-const defaultState: boolean[][] = [
-  [true, true, true],
-  [true, false, true],
-  [true, true, true],
-];
-
-const Board: FC<BoardProps> = ({ cellStates = defaultState }) => {
+const Board: FC<BoardProps> = ({ rows }) => {
   return (
     <>
-      {cellStates.map((rows, i) => (
-        <div key={String(i)} className="board-row">
-          {rows.map((columnState, j) => (
-            <Cell key={String(i + j)} alive={columnState} />
-          ))}
-        </div>
+      {rows.map((row, i) => (
+        <BoardRow key={String(i)} row={row} />
       ))}
     </>
   );
