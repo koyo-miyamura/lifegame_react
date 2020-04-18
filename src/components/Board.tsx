@@ -14,10 +14,10 @@ const defaultState: boolean[][] = [
 const Board: FC<BoardProps> = ({ cellStates = defaultState }) => {
   return (
     <>
-      {cellStates.map((rows) => (
-        <div className="board-row">
-          {rows.map((columnState) => (
-            <Cell alive={columnState} />
+      {cellStates.map((rows, i) => (
+        <div key={String(i)} className="board-row">
+          {rows.map((columnState, j) => (
+            <Cell key={String(i + j)} alive={columnState} />
           ))}
         </div>
       ))}
