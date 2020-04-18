@@ -7,21 +7,24 @@ const defaultCells: boolean[][] = [
   [true, true, true],
 ];
 
+const nextCells = (cells: boolean[][]): boolean[][] => {
+  return cells.map((row) => row.map((alive) => !alive));
+};
+
 const LifeGame: FC<{}> = () => {
   const [cells, setCells] = useState(defaultCells);
   useMemo(() => cells, [cells]);
 
   useEffect(() => {
-    const afterCells = [...defaultCells];
-    afterCells[0][0] = false;
-    const id = setTimeout(() => {
+    const id = setInterval(() => {
+      const afterCells = nextCells(cells);
       setCells(afterCells);
     }, 1000);
 
     return () => {
-      clearTimeout(id);
+      clearInterval(id);
     };
-  }, []);
+  }, [cells]);
 
   return (
     <>
