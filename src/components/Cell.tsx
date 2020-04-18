@@ -8,7 +8,10 @@ const Cell: FC<CellProps> = ({ alive = false }) => {
   const style: CSSProperties = {
     background: alive ? "#000" : "#FFF",
   };
-  return <button className="square" style={style}></button>;
+
+  return (
+    <button aria-label="cell" type="button" className="square" style={style} />
+  );
 };
 
 export default Cell;

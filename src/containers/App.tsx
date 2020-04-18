@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { routes } from "../routes";
 import { CssBaseline, Container } from "@material-ui/core";
+import { routes } from "../routes";
 
 const App: FC<{}> = () => {
   return (
@@ -20,8 +20,13 @@ const App: FC<{}> = () => {
         </nav>
 
         <Switch>
-          {routes.map((route, key) => (
-            <Route exact key={key} path={route.path} component={route.component} />
+          {routes.map((route) => (
+            <Route
+              exact
+              key={route.path}
+              path={route.path}
+              component={route.component}
+            />
           ))}
         </Switch>
       </Container>
