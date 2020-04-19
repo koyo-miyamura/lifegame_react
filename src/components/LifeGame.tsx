@@ -79,6 +79,12 @@ const LifeGame: FC<{}> = () => {
     setIsStart(!isStart);
   };
 
+  const handleClickBoard = (i: number, j: number) => {
+    const next = [...cells];
+    next[i][j] = !next[i][j];
+    setCells(next);
+  };
+
   return (
     <>
       <Grid container>
@@ -90,7 +96,7 @@ const LifeGame: FC<{}> = () => {
       </Grid>
 
       <Box mt={4}>
-        <Board rows={cells} />
+        <Board rows={cells} onClick={(i, j) => handleClickBoard(i, j)} />
       </Box>
     </>
   );
