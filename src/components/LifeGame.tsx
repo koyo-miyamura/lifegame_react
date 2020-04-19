@@ -1,5 +1,13 @@
 import React, { FC, useState, useEffect } from "react";
-import { Box, Grid, Button } from "@material-ui/core";
+import {
+  Box,
+  Grid,
+  Paper,
+  Button,
+  Input,
+  Container,
+  InputLabel,
+} from "@material-ui/core";
 import Board from "./Board";
 
 const aliveCellNum = (cells: boolean[][], i: number, j: number): number => {
@@ -59,6 +67,21 @@ const LifeGame: FC<{}> = () => {
   const [cells, setCells] = useState(defaultCells);
   const [isStart, setIsStart] = useState(false);
 
+  const rowLength = () => {
+    return cells.length;
+  };
+
+  const colLength = () => {
+    return cells[0] ? cells[0].length : 0;
+  };
+
+  // Generate cells[rowLen][colLen] (all false)
+  const generateCells = (rowLen: number, colLen: number) => {
+    return Array.from(Array(rowLen), () =>
+      Array.from(Array(colLen), () => false)
+    );
+  };
+
   useEffect(() => {
     if (!isStart) {
       return () => {
@@ -85,19 +108,58 @@ const LifeGame: FC<{}> = () => {
     setCells(next);
   };
 
+  const handleChangeRow = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const next = generateCells(Number(e.target.value), colLength());
+    setCells(next);
+  };
+  const handleChangeCol = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const next = generateCells(rowLength(), Number(e.target.value));
+    setCells(next);
+  };
+
   return (
     <>
-      <Grid container>
-        <Grid item xs={6}>
-          <Button variant="contained" color="primary" onClick={handleClick}>
-            {isStart ? "Stop" : "Start"}
-          </Button>
-        </Grid>
-      </Grid>
+      <Container maxWidth="sm">
+        <Paper variant="outlined" elevation={3}>
+          <Box p={2}>
+            <Grid container spacing={2}>
+              <Grid item xs={2}>
+                <InputLabel shrink>row</InputLabel>
+                <Input
+                  type="number"
+                  value={rowLength()}
+                  onChange={handleChangeRow}
+                  inputProps={{ min: 1, max: 50 }}
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <InputLabel shrink>column</InputLabel>
+                <Input
+                  type="number"
+                  value={colLength()}
+                  onChange={handleChangeCol}
+                  inputProps={{ min: 1, max: 50 }}
+                />
+              </Grid>
+              <Grid item container xs justify="flex-end">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClick}
+                >
+                  {isStart ? "Stop" : "Start"}
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+        </Paper>
+      </Container>
 
-      <Box mt={4}>
-        <Board rows={cells} onClick={(i, j) => handleClickBoard(i, j)} />
-      </Box>
+      <Grid container alignItems="center" justify="center">
+        <Box mt={4}>
+          <Board rows={cells} onClick={(i, j) => handleClickBoard(i, j)} />
+        </Box>
+      </Grid>
     </>
   );
 };
