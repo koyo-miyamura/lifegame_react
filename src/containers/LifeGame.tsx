@@ -8,7 +8,7 @@ import {
   Container,
   InputLabel,
 } from "@material-ui/core";
-import Board from "./Board";
+import Board from "../components/Board";
 
 const aliveCellNum = (cells: boolean[][], i: number, j: number): number => {
   const aroundCells = [
