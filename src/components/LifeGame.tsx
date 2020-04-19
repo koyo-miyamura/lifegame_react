@@ -1,4 +1,5 @@
 import React, { FC, useState, useEffect } from "react";
+import { Box, Grid, Button } from "@material-ui/core";
 import Board from "./Board";
 
 const aliveCellNum = (cells: boolean[][], i: number, j: number): number => {
@@ -53,10 +54,18 @@ const defaultCells: boolean[][] = [
 ];
 
 const tickMs = 300;
+
 const LifeGame: FC<{}> = () => {
   const [cells, setCells] = useState(defaultCells);
+  const [isStart, setIsStart] = useState(false);
 
   useEffect(() => {
+    if (!isStart) {
+      return () => {
+        // do nothing.
+      };
+    }
+
     const id = setInterval(() => {
       setCells(nextCells(cells));
     }, tickMs);
@@ -64,11 +73,25 @@ const LifeGame: FC<{}> = () => {
     return () => {
       clearInterval(id);
     };
-  }, [cells]);
+  }, [cells, isStart]);
+
+  const handleClick = () => {
+    setIsStart(!isStart);
+  };
 
   return (
     <>
-      <Board rows={cells} />
+      <Grid container>
+        <Grid item xs={6}>
+          <Button variant="contained" color="primary" onClick={handleClick}>
+            {isStart ? "Stop" : "Start"}
+          </Button>
+        </Grid>
+      </Grid>
+
+      <Box mt={4}>
+        <Board rows={cells} />
+      </Box>
     </>
   );
 };
