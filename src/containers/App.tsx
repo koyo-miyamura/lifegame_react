@@ -10,7 +10,7 @@ const App: FC<{}> = () => {
       <CssBaseline />
       <AppHeader routes={routes} />
 
-      <Container maxWidth="sm">
+      <Container>
         <Switch>
           {routes.map((route) => (
             <Route
