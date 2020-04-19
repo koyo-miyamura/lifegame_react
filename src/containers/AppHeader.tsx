@@ -3,10 +3,10 @@ import { useHistory } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
-  IconButton,
   Typography,
   Button,
   Box,
+  Grid,
 } from "@material-ui/core";
 import { Route } from "../routes";
 
@@ -21,17 +21,22 @@ const AppHeader: FC<AppHeaderProps> = ({ routes }) => {
     <Box mb={4}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu" />
-          <Typography variant="h5">Life Game</Typography>
-          {routes.map((route) => (
-            <Button
-              key={route.name}
-              color="inherit"
-              onClick={() => history.push(route.path)}
-            >
-              {route.name}
-            </Button>
-          ))}
+          <Grid container>
+            <Typography variant="h5" onClick={() => history.push("/")}>
+              Life Game
+            </Typography>
+          </Grid>
+          <Grid container justify="flex-end">
+            {routes.map((route) => (
+              <Button
+                key={route.name}
+                color="inherit"
+                onClick={() => history.push(route.path)}
+              >
+                {route.name}
+              </Button>
+            ))}
+          </Grid>
         </Toolbar>
       </AppBar>
     </Box>
