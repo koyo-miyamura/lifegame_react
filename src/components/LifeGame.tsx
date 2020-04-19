@@ -47,13 +47,14 @@ const defaultCells: boolean[][] = [
   [false, true, false],
 ];
 
+const tickMs = 300;
 const LifeGame: FC<{}> = () => {
   const [cells, setCells] = useState(defaultCells);
 
   useEffect(() => {
     const id = setInterval(() => {
       setCells(nextCells(cells));
-    }, 1000);
+    }, tickMs);
 
     return () => {
       clearInterval(id);
