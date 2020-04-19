@@ -1,24 +1,16 @@
 import React, { FC } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CssBaseline, Container } from "@material-ui/core";
 import { routes } from "../routes";
+import AppHeader from "./AppHeader";
 
 const App: FC<{}> = () => {
   return (
     <Router>
       <CssBaseline />
-      <Container maxWidth="sm">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
-        </nav>
+      <AppHeader routes={routes} />
 
+      <Container maxWidth="sm">
         <Switch>
           {routes.map((route) => (
             <Route
