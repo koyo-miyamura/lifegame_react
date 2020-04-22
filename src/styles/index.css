@@ -6,22 +6,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.board-row {
+  display: flex;
+}
+
 .square {
+  display: flex;
   border: 1px solid #999;
-  float: left;
+  width: 20px;
   height: 20px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
-  width: 20px;
 }
 
 .square:focus {
   outline: none;
-}
-
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
 }
