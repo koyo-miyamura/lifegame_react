@@ -50,6 +50,12 @@ const nextCells = (cells: boolean[][]): boolean[][] => {
   );
 };
 
+// const defaultCells: boolean[][] = [
+//   [false, true, false],
+//   [false, true, false],
+//   [false, true, false],
+// ];
+
 const defaultCells: boolean[][] = [
   [false, false, false, true, true, false, false, false],
   [false, false, true, false, false, true, false, false],
@@ -117,6 +123,8 @@ const LifeGame: FC<{}> = () => {
     setCells(next);
   };
 
+  const inputProps = { min: 2, max: 100 };
+
   return (
     <>
       <Container maxWidth="sm">
@@ -129,7 +137,7 @@ const LifeGame: FC<{}> = () => {
                   type="number"
                   value={rowLength()}
                   onChange={handleChangeRow}
-                  inputProps={{ min: 1, max: 50 }}
+                  inputProps={inputProps}
                 />
               </Grid>
               <Grid item xs={2}>
@@ -138,13 +146,13 @@ const LifeGame: FC<{}> = () => {
                   type="number"
                   value={colLength()}
                   onChange={handleChangeCol}
-                  inputProps={{ min: 1, max: 50 }}
+                  inputProps={inputProps}
                 />
               </Grid>
               <Grid item container xs justify="flex-end">
                 <Button
                   variant="contained"
-                  color="primary"
+                  color={isStart ? "secondary" : "primary"}
                   onClick={handleClick}
                 >
                   {isStart ? "Stop" : "Start"}
@@ -156,9 +164,11 @@ const LifeGame: FC<{}> = () => {
       </Container>
 
       <Grid container alignItems="center" justify="center">
-        <Box mt={4}>
-          <Board rows={cells} onClick={(i, j) => handleClickBoard(i, j)} />
-        </Box>
+        <Grid item zeroMinWidth>
+          <Box mt={4}>
+            <Board rows={cells} onClick={(i, j) => handleClickBoard(i, j)} />
+          </Box>
+        </Grid>
       </Grid>
     </>
   );
