@@ -1,14 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
-import {
-  Box,
-  Grid,
-  Paper,
-  Button,
-  Input,
-  Container,
-  InputLabel,
-} from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import Board from "../components/Board";
+import ControlPanel from "../components/ControlPanel";
 
 const aliveCellNum = (cells: boolean[][], i: number, j: number): number => {
   const aroundCells = [
@@ -104,7 +97,7 @@ const LifeGame: FC<{}> = () => {
     };
   }, [cells, isStart]);
 
-  const handleClick = () => {
+  const handleChangeStart = () => {
     setIsStart(!isStart);
   };
 
@@ -123,46 +116,16 @@ const LifeGame: FC<{}> = () => {
     setCells(next);
   };
 
-  const inputProps = { min: 2, max: 100 };
-
   return (
     <>
-      <Container maxWidth="sm">
-        <Paper variant="outlined" elevation={3}>
-          <Box p={2}>
-            <Grid container spacing={2}>
-              <Grid item xs={2}>
-                <InputLabel shrink>row</InputLabel>
-                <Input
-                  type="number"
-                  value={rowLength()}
-                  onChange={handleChangeRow}
-                  inputProps={inputProps}
-                />
-              </Grid>
-              <Grid item xs={2}>
-                <InputLabel shrink>column</InputLabel>
-                <Input
-                  type="number"
-                  value={colLength()}
-                  onChange={handleChangeCol}
-                  inputProps={inputProps}
-                />
-              </Grid>
-              <Grid item container xs justify="flex-end">
-                <Button
-                  variant="contained"
-                  color={isStart ? "secondary" : "primary"}
-                  onClick={handleClick}
-                >
-                  {isStart ? "Stop" : "Start"}
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
-        </Paper>
-      </Container>
-
+      <ControlPanel
+        rowLength={rowLength()}
+        colLength={colLength()}
+        isStart={isStart}
+        onChangeCol={handleChangeCol}
+        onChangeRow={handleChangeRow}
+        onChangeStart={handleChangeStart}
+      />
       <Grid container alignItems="center" justify="center">
         <Grid item zeroMinWidth>
           <Box mt={4}>
