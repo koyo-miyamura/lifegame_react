@@ -5,7 +5,7 @@ import ControlPanel from "../components/ControlPanel";
 import Game from "../lib/lifegame";
 import KnownCells, { defaultCells } from "../lib/cells";
 
-const tickMs = 300;
+const tickMs = 200;
 
 const LifeGame: FC<{}> = () => {
   const [cells, setCells] = useState(defaultCells.value);

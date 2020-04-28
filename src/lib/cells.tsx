@@ -71,6 +71,23 @@ const knownCells: Map<string, boolean[][]> = new Map([
       [false, false ,false, false, false, false, false, false, false, false, false, false, false],
     ],
   ],
+  // prettier-ignore
+  [
+    "Queen bee shuttle",
+    [
+      [false, false ,false, false, false, false, false, false, false, false, false, false, false, false, false ,false, false, false, false, false, false, false, false, false],
+      [false, false ,false, false, false, false, false, false, false, false, false, false, false, false, false ,false, false, false, false, false, false, false, false, false],
+      [false, false ,false, false, false, false, false, false, false, false, true, false, false, false, false ,false, false, false, false, false, false, false, false, false],
+      [false, false ,false, false, false, false, false, false, true, false, true, false, false, false, false ,false, false, false, false, false, false, false, false, false],
+      [false, false ,false, false, false, false, false, true, false, true, false, false, false, false, false ,false, false, false, false, false, false, false, false, false],
+      [false, true ,true, false, false, false, true, false, false, true, false, false, false, false, false ,false, false, false, false, false, false, true, true, false],
+      [false, true ,true, false, false, false, false, true, false, true, false, false, false, false, false ,false, false, false, false, false, false, true, true, false],
+      [false, false ,false, false, false, false, false, false, true, false, true, false, false, false, false ,false, false, false, false, false, false, false, false, false],
+      [false, false ,false, false, false, false, false, false, false, false, true, false, false, false, false ,false, false, false, false, false, false, false, false, false],
+      [false, false ,false, false, false, false, false, false, false, false, false, false, false, false, false ,false, false, false, false, false, false, false, false, false],
+      [false, false ,false, false, false, false, false, false, false, false, false, false, false, false, false ,false, false, false, false, false, false, false, false, false],
+    ],
+  ],
 ]);
 
 export const defaultCells = {
