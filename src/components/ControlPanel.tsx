@@ -7,7 +7,10 @@ import {
   Input,
   Container,
   InputLabel,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
+import KnownCells, { defaultCells } from "../lib/cells";
 
 type ControlPanelProps = {
   rowLength: number;
@@ -16,6 +19,7 @@ type ControlPanelProps = {
   onChangeStart?: () => void;
   onChangeRow?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeCol?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChangePreset?: (e: React.ChangeEvent<{ value: unknown }>) => void;
 };
 
 const ControlPanel: FC<ControlPanelProps> = ({
@@ -25,6 +29,7 @@ const ControlPanel: FC<ControlPanelProps> = ({
   onChangeStart = () => undefined,
   onChangeRow = () => undefined,
   onChangeCol = () => undefined,
+  onChangePreset = () => undefined,
 }) => {
   const inputProps = { min: 2, max: 100 };
 
@@ -50,6 +55,19 @@ const ControlPanel: FC<ControlPanelProps> = ({
                 onChange={onChangeCol}
                 inputProps={inputProps}
               />
+            </Grid>
+            <Grid item xs={4}>
+              <InputLabel shrink>cells</InputLabel>
+              <Select
+                defaultValue={defaultCells.name}
+                onChange={onChangePreset}
+              >
+                {Array.from(KnownCells.keys()).map((cellName) => (
+                  <MenuItem key={cellName} value={cellName}>
+                    {cellName}
+                  </MenuItem>
+                ))}
+              </Select>
             </Grid>
             <Grid item container xs justify="flex-end">
               <Button

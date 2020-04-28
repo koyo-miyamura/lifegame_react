@@ -3,28 +3,12 @@ import { Box, Grid } from "@material-ui/core";
 import Board from "../components/Board";
 import ControlPanel from "../components/ControlPanel";
 import Game from "../lib/lifegame";
-
-// const defaultCells: boolean[][] = [
-//   [false, true, false],
-//   [false, true, false],
-//   [false, true, false],
-// ];
-
-const defaultCells: boolean[][] = [
-  [false, false, false, true, true, false, false, false],
-  [false, false, true, false, false, true, false, false],
-  [false, true, false, false, false, false, true, false],
-  [true, false, false, false, false, false, false, true],
-  [true, false, false, false, false, false, false, true],
-  [false, true, false, false, false, false, true, false],
-  [false, false, true, false, false, true, false, false],
-  [false, false, false, true, true, false, false, false],
-];
+import KnownCells, { defaultCells } from "../lib/cells";
 
 const tickMs = 300;
 
 const LifeGame: FC<{}> = () => {
-  const [cells, setCells] = useState(defaultCells);
+  const [cells, setCells] = useState(defaultCells.value);
   const [isStart, setIsStart] = useState(false);
 
   useEffect(() => {
@@ -68,6 +52,12 @@ const LifeGame: FC<{}> = () => {
     setCells(next);
   };
 
+  const handleChangePreset = (e: React.ChangeEvent<{ value: unknown }>) => {
+    const key = e.target.value as string;
+    const selectedCells = KnownCells.get(key);
+    if (selectedCells) setCells(selectedCells);
+  };
+
   return (
     <>
       <ControlPanel
@@ -77,6 +67,7 @@ const LifeGame: FC<{}> = () => {
         onChangeCol={handleChangeCol}
         onChangeRow={handleChangeRow}
         onChangeStart={handleChangeStart}
+        onChangePreset={handleChangePreset}
       />
       <Grid container alignItems="center" justify="center">
         <Grid item zeroMinWidth>
