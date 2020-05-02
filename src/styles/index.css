@@ -6,6 +6,45 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* About page */
+.jumbotron {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  color: inherit;
+  background-color: #c5cae9;
+  border-radius: 4px;
+}
+.jumbotron a {
+  color: inherit;
+}
+.jumbotron h1 {
+  font-size: 36px;
+  text-align: center;
+  color: inherit;
+}
+.jumbotron p {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 200;
+}
+
+@media screen and (min-width: 768px) {
+  .jumbotron {
+    padding-top: 48px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-bottom: 48px;
+  }
+  .jumbotron h1 {
+    font-size: 72px;
+  }
+  .jumbotron p {
+    font-size: 24px;
+  }
+}
+
+/* cell */
 .board-row {
   display: flex;
 }
