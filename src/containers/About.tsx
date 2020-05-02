@@ -14,14 +14,17 @@ const About: FC<{}> = () => {
       <TwitterIcon />
     </Link>
   );
+  const JumbotronTitle = () => (
+    <Typography component="h1">
+      <Link href="https://ja.wikipedia.org/wiki/%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B2%E3%83%BC%E3%83%A0">
+        Conway&apos;s Game of Life
+      </Link>
+    </Typography>
+  );
 
   return (
     <Box className="jumbotron">
-      <Typography component="h1">
-        <Link href="https://ja.wikipedia.org/wiki/%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B2%E3%83%BC%E3%83%A0">
-          Conway&apos;s Game of Life
-        </Link>
-      </Typography>
+      <JumbotronTitle />
       <Typography component="p">by Koyo</Typography>
       <Typography component="p">
         <GithubLink />
