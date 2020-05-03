@@ -54,12 +54,12 @@ const chunk = (str: string, num: number): string[] => {
   return result;
 };
 
-// 2進数表現されたstringと行数rからcellsを複合する
-const strToBool2s = (str: string, r: number): boolean[][] => {
-  return chunk(str, r).map((ss) => ss.split("").map((s) => s === "1"));
+// 2進数表現されたstringと列数cからcellsを複合する
+const strToBool2s = (str: string, c: number): boolean[][] => {
+  return chunk(str, c).map((ss) => ss.split("").map((s) => s === "1"));
 };
 
-// （クエリパラメータなどで受け取った）32進数表現されたstringと行数rからcellsを復号する
-export const cellsFromStr = (str: string, r: number): boolean[][] => {
-  return strToBool2s(unzipStr32(str), r);
+// （クエリパラメータなどで受け取った）32進数表現されたstringと列数rからcellsを復号する
+export const cellsFromStr = (str: string, c: number): boolean[][] => {
+  return strToBool2s(unzipStr32(str), c);
 };
