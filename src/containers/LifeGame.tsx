@@ -8,7 +8,7 @@ import KnownCells, { defaultCells } from "../lib/cells";
 const tickMs = 200;
 
 const LifeGame: FC<{}> = () => {
-  const [cells, setCells] = useState(defaultCells.value);
+  const [cells, setCells] = useState(defaultCells);
   const [isStart, setIsStart] = useState(false);
 
   useEffect(() => {

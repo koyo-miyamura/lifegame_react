@@ -90,9 +90,6 @@ const knownCells: Map<string, boolean[][]> = new Map([
   ],
 ]);
 
-export const defaultCells = {
-  name: "Octagon",
-  value: knownCells.get("Octagon") as boolean[][],
-};
+export const defaultCells = knownCells.get("Octagon") as boolean[][];
 
 export default knownCells;

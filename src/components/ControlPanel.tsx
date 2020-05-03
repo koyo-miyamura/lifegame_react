@@ -9,8 +9,9 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Typography,
 } from "@material-ui/core";
-import KnownCells, { defaultCells } from "../lib/cells";
+import KnownCells from "../lib/cells";
 
 type ControlPanelProps = {
   rowLength: number;
@@ -58,13 +59,15 @@ const ControlPanel: FC<ControlPanelProps> = ({
             </Grid>
             <Grid item xs={4}>
               <InputLabel shrink>cells</InputLabel>
-              <Select
-                defaultValue={defaultCells.name}
-                onChange={onChangePreset}
-              >
+              <Select defaultValue="default" onChange={onChangePreset}>
+                <MenuItem value="default" dense>
+                  <Typography component="span" color="textSecondary">
+                    Select
+                  </Typography>
+                </MenuItem>
                 {Array.from(KnownCells.keys()).map((cellName) => (
                   <MenuItem key={cellName} value={cellName}>
-                    {cellName}
+                    <Typography>{cellName}</Typography>
                   </MenuItem>
                 ))}
               </Select>
