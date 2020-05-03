@@ -59,7 +59,7 @@ const strToBool2s = (str: string, c: number): boolean[][] => {
   return chunk(str, c).map((ss) => ss.split("").map((s) => s === "1"));
 };
 
-// （クエリパラメータなどで受け取った）32進数表現されたstringと列数rからcellsを復号する
+// （クエリパラメータなどで受け取った）32進数表現されたstringと列数cからcellsを復号する
 export const cellsFromStr = (str: string, c: number): boolean[][] => {
   return strToBool2s(unzipStr32(str), c);
 };
