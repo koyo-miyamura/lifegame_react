@@ -49,7 +49,7 @@ const ControlPanel: FC<ControlPanelProps> = ({
               />
             </Grid>
             <Grid item xs={2}>
-              <InputLabel shrink>column</InputLabel>
+              <InputLabel shrink>col</InputLabel>
               <Input
                 type="number"
                 value={colLength}
