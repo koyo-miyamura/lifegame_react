@@ -3,11 +3,14 @@ import { Box, Grid } from "@material-ui/core";
 import Board from "../components/Board";
 import ControlPanel from "../components/ControlPanel";
 import Game from "../lib/lifegame";
-import KnownCells, { defaultCells } from "../lib/cells";
+import KnownCells from "../lib/cells";
 
 const tickMs = 200;
 
-const LifeGame: FC<{}> = () => {
+type LifeGameProps = {
+  defaultCells: boolean[][];
+};
+const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
   const [cells, setCells] = useState(defaultCells);
   const [isStart, setIsStart] = useState(false);
 
