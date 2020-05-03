@@ -61,9 +61,7 @@ const ControlPanel: FC<ControlPanelProps> = ({
               <InputLabel shrink>cells</InputLabel>
               <Select defaultValue="default" onChange={onChangePreset}>
                 <MenuItem value="default" dense>
-                  <Typography component="span" color="textSecondary">
-                    Select
-                  </Typography>
+                  <Typography color="textSecondary">Select</Typography>
                 </MenuItem>
                 {Array.from(KnownCells.keys()).map((cellName) => (
                   <MenuItem key={cellName} value={cellName}>
