@@ -1,10 +1,12 @@
 import React, { FC, useState, useEffect } from "react";
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, Snackbar } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import Board from "../components/Board";
 import ControlPanel from "../components/ControlPanel";
 import ControlButtons from "../components/ControlButtons";
 import Game from "../lib/lifegame";
 import KnownCells from "../lib/cells";
+import { cellsToStr } from "../lib/cellsConverter";
 
 const tickMs = 200;
 
@@ -14,6 +16,10 @@ type LifeGameProps = {
 const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
   const [cells, setCells] = useState(defaultCells);
   const [isStart, setIsStart] = useState(false);
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+  });
 
   useEffect(() => {
     if (!isStart) {
@@ -62,8 +68,34 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
     if (selectedCells) setCells(selectedCells);
   };
 
+  const shareUrl = () => {
+    const r = Game.rowLength(cells);
+    const c = Game.colLength(cells);
+    const cs = cellsToStr(cells);
+
+    return `${window.location.host}/#/?r=${r}&c=${c}&cs=${cs}`;
+  };
+
+  const handleClickShare = () => {
+    setToast({ open: true, message: "Copy Share Link" });
+  };
+
+  const handleCloseToast = () => {
+    setToast({ open: false, message: "" });
+  };
+
   return (
     <>
+      <Snackbar
+        open={toast.open}
+        autoHideDuration={5000}
+        onClose={handleCloseToast}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleCloseToast} severity="success">
+          {toast.message}
+        </Alert>
+      </Snackbar>
       <ControlPanel
         rowLength={Game.rowLength(cells)}
         colLength={Game.colLength(cells)}
@@ -73,7 +105,7 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
         onChangeStart={handleChangeStart}
         onChangePreset={handleChangePreset}
       />
-      <ControlButtons />
+      <ControlButtons shareUrl={shareUrl()} onClickShare={handleClickShare} />
       <Grid container alignItems="center" justify="center">
         <Grid item zeroMinWidth>
           <Box mt={4}>
