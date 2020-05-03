@@ -22,20 +22,22 @@ const AppHeader: FC<AppHeaderProps> = ({ routes }) => {
       <AppBar position="static">
         <Toolbar>
           <Grid container>
-            <Typography variant="h5" onClick={() => history.push("/")}>
-              Life Game
-            </Typography>
-          </Grid>
-          <Grid container justify="flex-end">
-            {routes.map((route) => (
-              <Button
-                key={route.name}
-                color="inherit"
-                onClick={() => history.push(route.path)}
-              >
-                {route.name}
-              </Button>
-            ))}
+            <Grid item xs={2}>
+              <Typography variant="h5" onClick={() => history.push("/")}>
+                LifeGame
+              </Typography>
+            </Grid>
+            <Grid container item xs justify="flex-end">
+              {routes.map((route) => (
+                <Button
+                  key={route.path}
+                  color="inherit"
+                  onClick={() => history.push(route.path)}
+                >
+                  {route.contents}
+                </Button>
+              ))}
+            </Grid>
           </Grid>
         </Toolbar>
       </AppBar>

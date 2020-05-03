@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from "react";
 import { Box, Grid } from "@material-ui/core";
 import Board from "../components/Board";
 import ControlPanel from "../components/ControlPanel";
+import ControlButtons from "../components/ControlButtons";
 import Game from "../lib/lifegame";
 import KnownCells from "../lib/cells";
 
@@ -72,6 +73,7 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
         onChangeStart={handleChangeStart}
         onChangePreset={handleChangePreset}
       />
+      <ControlButtons />
       <Grid container alignItems="center" justify="center">
         <Grid item zeroMinWidth>
           <Box mt={4}>

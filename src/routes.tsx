@@ -1,14 +1,29 @@
-import { FC } from "react";
+import React, { FC, ReactElement } from "react";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import Home from "./containers/Home";
 import About from "./containers/About";
+import Favorite from "./containers/Favorite";
 
 export type Route = {
-  name: string;
+  contents: ReactElement;
   path: string;
   component: FC;
 };
 
 export const routes: Route[] = [
-  { name: "Home", path: "/", component: Home },
-  { name: "About", path: "/about", component: About },
+  {
+    contents: React.createElement("span", null, "Home"),
+    path: "/",
+    component: Home,
+  },
+  {
+    contents: React.createElement("span", null, "About"),
+    path: "/about",
+    component: About,
+  },
+  {
+    contents: React.createElement(FavoriteIcon, null),
+    path: "/favorite",
+    component: Favorite,
+  },
 ];
