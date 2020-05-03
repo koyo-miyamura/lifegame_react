@@ -8,13 +8,12 @@ import Game from "../lib/lifegame";
 import KnownCells from "../lib/cells";
 import { cellsToStr } from "../lib/cellsConverter";
 
-const tickMs = 200;
-
 type LifeGameProps = {
   defaultCells: boolean[][];
 };
 const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
   const [cells, setCells] = useState(defaultCells);
+  const [tickMs, setTickMs] = useState(200);
   const [isStart, setIsStart] = useState(false);
   const [toast, setToast] = useState({
     open: false,
@@ -35,7 +34,7 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
     return () => {
       clearInterval(id);
     };
-  }, [cells, isStart]);
+  }, [cells, isStart, tickMs]);
 
   const handleChangeStart = () => {
     setIsStart(!isStart);
@@ -84,6 +83,13 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
     setToast({ open: false, message: "" });
   };
 
+  const handleChangeTickMs = (
+    _e: React.ChangeEvent<{}>,
+    value: number | number[]
+  ) => {
+    setTickMs(value as number);
+  };
+
   return (
     <>
       <Snackbar
@@ -100,10 +106,12 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
         rowLength={Game.rowLength(cells)}
         colLength={Game.colLength(cells)}
         isStart={isStart}
+        tickMs={tickMs}
         onChangeCol={handleChangeCol}
         onChangeRow={handleChangeRow}
         onChangeStart={handleChangeStart}
         onChangePreset={handleChangePreset}
+        onChangeTickMs={handleChangeTickMs}
       />
       <ControlButtons shareUrl={shareUrl()} onClickShare={handleClickShare} />
       <Grid container alignItems="center" justify="center">
