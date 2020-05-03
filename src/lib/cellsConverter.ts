@@ -34,11 +34,16 @@ export const cellsToStr = (cells: boolean[][]): string => {
 // -------------------------
 
 // 文字列表現された32進数を2進数を使って復号する
-export const unzipStr32 = (str: string): string => {
+export const unzipStr32 = (str: string, rowColSize: number): string => {
   let result = "";
   for (let i = 0; i < str.length; i += 1) {
     const tmp = str.slice(i, i + 1);
-    result += parseInt(tmp, 32).toString(2).padStart(5, "0");
+
+    // 32進数 -> 2進数 なので5桁で0埋めするが、最後の端数だけはトータルの長さを考慮して調整する
+    let padLength = 5;
+    if (i === str.length - 1) padLength = rowColSize - i * 5;
+
+    result += parseInt(tmp, 32).toString(2).padStart(padLength, "0");
   }
 
   return result;
@@ -60,6 +65,10 @@ const strToBool2s = (str: string, c: number): boolean[][] => {
 };
 
 // （クエリパラメータなどで受け取った）32進数表現されたstringと列数cからcellsを復号する
-export const cellsFromStr = (str: string, c: number): boolean[][] => {
-  return strToBool2s(unzipStr32(str), c);
+export const cellsFromStr = (
+  str: string,
+  r: number,
+  c: number
+): boolean[][] => {
+  return strToBool2s(unzipStr32(str, r * c), c);
 };

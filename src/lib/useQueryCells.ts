@@ -3,13 +3,13 @@ import { defaultCells } from "./cells";
 import { cellsFromStr } from "./cellsConverter";
 import Game from "./lifegame";
 
-const validateCols = (cols: number): boolean => {
-  // NaN か 0 ならデフォルト値にする
-  if (!cols) {
+const validateNum = (num: number): boolean => {
+  // NaN か 0 なら false
+  if (!num) {
     return false;
   }
 
-  return cols <= 100;
+  return num <= 100;
 };
 
 const validateCells = (cells: boolean[][]): boolean => {
@@ -21,15 +21,18 @@ export const useQueryCells = (): boolean[][] => {
 
   // どちらかがクエリパラメータから取得できなければデフォルト値を返す
   const cellsStr32 = query.get("cs");
+  const rowsStr = query.get("r");
   const colsStr = query.get("c");
-  if (!(cellsStr32 && colsStr)) {
+  if (!(cellsStr32 && rowsStr && colsStr)) {
     return defaultCells;
   }
 
   const cols = parseInt(colsStr, 10);
-  if (!validateCols(cols)) return defaultCells;
+  const rows = parseInt(rowsStr, 10);
+  if (!validateNum(cols)) return defaultCells;
+  if (!validateNum(rows)) return defaultCells;
 
-  const cells = cellsFromStr(cellsStr32, cols);
+  const cells = cellsFromStr(cellsStr32, rows, cols);
   if (!validateCells(cells)) return defaultCells;
 
   return cells;
