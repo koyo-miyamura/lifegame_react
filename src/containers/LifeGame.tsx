@@ -6,11 +6,13 @@ import ControlPanel from "../components/ControlPanel";
 import ControlButtons from "../components/ControlButtons";
 import Game from "../lib/lifegame";
 import KnownCells from "../lib/cells";
-import { cellsToStr } from "../lib/cellsConverter";
+import { shareUrl } from "../lib/cellsConverter";
+import * as LocalStorage from "../lib/localStorage";
 
 type LifeGameProps = {
   defaultCells: boolean[][];
 };
+
 const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
   const [cells, setCells] = useState(defaultCells);
   const [tickMs, setTickMs] = useState(200);
@@ -67,16 +69,17 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
     if (selectedCells) setCells(selectedCells);
   };
 
-  const shareUrl = () => {
-    const r = Game.rowLength(cells);
-    const c = Game.colLength(cells);
-    const cs = cellsToStr(cells);
-
-    return `${window.location.host}/#/?r=${r}&c=${c}&cs=${cs}`;
-  };
-
   const handleClickShare = () => {
     setToast({ open: true, message: "Copy Share Link" });
+  };
+  const handleClickFavorite = () => {
+    try {
+      LocalStorage.save(cells);
+    } catch (e) {
+      throw new Error(e);
+    }
+
+    setToast({ open: true, message: "Save Your Cells" });
   };
 
   const handleCloseToast = () => {
@@ -113,7 +116,11 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
         onChangePreset={handleChangePreset}
         onChangeTickMs={handleChangeTickMs}
       />
-      <ControlButtons shareUrl={shareUrl()} onClickShare={handleClickShare} />
+      <ControlButtons
+        shareUrl={shareUrl(window.location.host, cells)}
+        onClickShare={handleClickShare}
+        onClickFavorite={handleClickFavorite}
+      />
       <Grid container alignItems="center" justify="center">
         <Grid item zeroMinWidth>
           <Box mt={4}>

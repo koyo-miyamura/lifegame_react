@@ -1,3 +1,4 @@
+import Game from "./lifegame";
 // -------------------------
 // /* cells -> string */
 // -------------------------
@@ -71,4 +72,19 @@ export const cellsFromStr = (
   c: number
 ): boolean[][] => {
   return strToBool2s(unzipStr32(str, r * c), c);
+};
+
+// -------------------------
+// /* cells -> url */
+// -------------------------
+export const shareQueryParams = (cells: boolean[][]): string => {
+  const r = Game.rowLength(cells);
+  const c = Game.colLength(cells);
+  const cs = cellsToStr(cells);
+
+  return `?r=${r}&c=${c}&cs=${cs}`;
+};
+
+export const shareUrl = (host: string, cells: boolean[][]): string => {
+  return `${host}/#/${shareQueryParams(cells)}`;
 };
