@@ -11,8 +11,17 @@ const validateNum = (num: number): boolean => {
   return num <= 100;
 };
 
-const validateCells = (cells: boolean[][]): boolean => {
-  return Game.rowLength(cells) <= 100 && Game.colLength(cells) <= 100;
+const validateCells = (
+  cells: boolean[][],
+  rows: number,
+  cols: number
+): boolean => {
+  const cellRows = Game.rowLength(cells);
+  const cellCols = Game.colLength(cells);
+
+  return (
+    cellRows === rows && cellCols === cols && cellRows <= 100 && cellCols <= 100
+  );
 };
 
 export const cellsFromQuery = (queryString: string): boolean[][] => {
@@ -32,7 +41,7 @@ export const cellsFromQuery = (queryString: string): boolean[][] => {
   if (!validateNum(rows)) return [[]];
 
   const cells = cellsFromStr(cellsStr32, rows, cols);
-  if (!validateCells(cells)) return [[]];
+  if (!validateCells(cells, rows, cols)) return [[]];
 
   return cells;
 };
