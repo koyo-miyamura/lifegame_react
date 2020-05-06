@@ -85,6 +85,6 @@ export const shareQueryParams = (cells: boolean[][]): string => {
   return `?r=${r}&c=${c}&cs=${cs}`;
 };
 
-export const shareUrl = (host: string, cells: boolean[][]): string => {
-  return `${host}/#/${shareQueryParams(cells)}`;
+export const shareUrl = (origin: string, cells: boolean[][]): string => {
+  return `${origin}/#/${shareQueryParams(cells)}`;
 };

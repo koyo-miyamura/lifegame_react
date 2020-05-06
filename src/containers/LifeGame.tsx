@@ -101,7 +101,7 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells = [[]] }) => {
         onChangeTickMs={handleChangeTickMs}
       />
       <ControlButtons
-        shareUrl={shareUrl(window.location.host, cells)}
+        shareUrl={shareUrl(window.location.origin, cells)}
         onClickShare={handleClickShare}
         onClickFavorite={handleClickFavorite}
       />
