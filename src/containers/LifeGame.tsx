@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from "react";
-import { Box, Grid, Snackbar } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
+import { Box, Grid } from "@material-ui/core";
+import { useDispatch } from "react-redux";
 import Board from "../components/Board";
 import ControlPanel from "../components/ControlPanel";
 import ControlButtons from "../components/ControlButtons";
@@ -8,19 +8,22 @@ import Game from "../lib/lifegame";
 import KnownCells from "../lib/cells";
 import { shareUrl } from "../lib/cellsConverter";
 import * as LocalStorage from "../lib/localStorage";
+import { openToast } from "../actions/system";
 
 type LifeGameProps = {
-  defaultCells: boolean[][];
+  defaultCells?: boolean[][];
+  isStart?: boolean;
+  onStart?: (isStart: boolean) => void;
 };
 
-const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
+const LifeGame: FC<LifeGameProps> = ({
+  defaultCells = [[]],
+  isStart = false,
+  onStart = () => undefined,
+}) => {
+  const dispatch = useDispatch();
   const [cells, setCells] = useState(defaultCells);
   const [tickMs, setTickMs] = useState(200);
-  const [isStart, setIsStart] = useState(false);
-  const [toast, setToast] = useState({
-    open: false,
-    message: "",
-  });
 
   useEffect(() => {
     if (!isStart) {
@@ -39,7 +42,7 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
   }, [cells, isStart, tickMs]);
 
   const handleChangeStart = () => {
-    setIsStart(!isStart);
+    onStart(!isStart);
   };
 
   const handleClickBoard = (i: number, j: number) => {
@@ -70,7 +73,7 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
   };
 
   const handleClickShare = () => {
-    setToast({ open: true, message: "Copy Share Link" });
+    dispatch(openToast("Copy Share Link"));
   };
   const handleClickFavorite = () => {
     try {
@@ -79,11 +82,7 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
       throw new Error(e);
     }
 
-    setToast({ open: true, message: "Save Your Cells" });
-  };
-
-  const handleCloseToast = () => {
-    setToast({ open: false, message: "" });
+    dispatch(openToast("Save Your Cells"));
   };
 
   const handleChangeTickMs = (
@@ -95,16 +94,6 @@ const LifeGame: FC<LifeGameProps> = ({ defaultCells }) => {
 
   return (
     <>
-      <Snackbar
-        open={toast.open}
-        autoHideDuration={5000}
-        onClose={handleCloseToast}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert onClose={handleCloseToast} severity="success">
-          {toast.message}
-        </Alert>
-      </Snackbar>
       <ControlPanel
         rowLength={Game.rowLength(cells)}
         colLength={Game.colLength(cells)}
