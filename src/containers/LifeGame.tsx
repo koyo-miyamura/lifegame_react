@@ -12,18 +12,13 @@ import { openToast } from "../actions/system";
 
 type LifeGameProps = {
   defaultCells?: boolean[][];
-  isStart?: boolean;
-  onStart?: (isStart: boolean) => void;
 };
 
-const LifeGame: FC<LifeGameProps> = ({
-  defaultCells = [[]],
-  isStart = false,
-  onStart = () => undefined,
-}) => {
+const LifeGame: FC<LifeGameProps> = ({ defaultCells = [[]] }) => {
   const dispatch = useDispatch();
   const [cells, setCells] = useState(defaultCells);
   const [tickMs, setTickMs] = useState(200);
+  const [isStart, setIsStart] = useState(false);
 
   useEffect(() => {
     if (!isStart) {
@@ -42,7 +37,7 @@ const LifeGame: FC<LifeGameProps> = ({
   }, [cells, isStart, tickMs]);
 
   const handleChangeStart = () => {
-    onStart(!isStart);
+    setIsStart(!isStart);
   };
 
   const handleClickBoard = (i: number, j: number) => {

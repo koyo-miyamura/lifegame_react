@@ -12,15 +12,14 @@ import { Route } from "../routes";
 
 type AppHeaderProps = {
   routes: Route[];
-  color?: "primary" | "secondary";
 };
 
-const AppHeader: FC<AppHeaderProps> = ({ routes, color = "primary" }) => {
+const AppHeader: FC<AppHeaderProps> = ({ routes }) => {
   const history = useHistory();
 
   return (
     <Box mb={4}>
-      <AppBar position="static" color={color}>
+      <AppBar position="static">
         <Toolbar>
           <Grid container>
             <Grid item xs={2}>

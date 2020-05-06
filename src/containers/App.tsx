@@ -16,7 +16,6 @@ const App: FC<{}> = () => {
   const toastMessage = useSelector(
     (state: RootState) => state.System.toastMessage
   );
-  const isStart = useSelector((state: RootState) => state.LifeGame.isStart);
 
   const dispatch: Dispatch<RootAction> = useDispatch();
   const handleCloseToast = () => {
@@ -26,7 +25,7 @@ const App: FC<{}> = () => {
   return (
     <Router>
       <CssBaseline />
-      <AppHeader routes={routes} color={isStart ? "secondary" : "primary"} />
+      <AppHeader routes={routes} />
       <Container>
         <Toast
           isOpen={isToastOpen}
